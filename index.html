@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buldak Store - Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <button class="header-btn admin-login-btn" onclick="openAdminModal()">Admin Login</button>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">☀️</button>
+        <button class="header-btn customer-login-btn" id="auth-btn" onclick="openCustomerModal()">Login / Register</button>
+        <hspan id="user-greeting" class="user-greeting" style="display: none;"></hspan>
+        <h1>Buldak Store Menu</h1>
+    </header>
+
+    <div class="store-controls container">
+        <input type="text" id="search-input" placeholder="Search for products..." oninput="filterAndSearchProducts()">
+        <select id="price-sort" onchange="filterAndSearchProducts()">
+            <option value="default">Sort by Price</option>
+            <option value="low">Low to High</option>
+            <option value="high">High to Low</option>
+        </select>
+        <button onclick="toggleWishlistView()" id="wishlist-toggle-btn" class="wishlist-toggle-btn">❤️ My Wishlist</button>
+    </div>
+
+    <nav>
+        <button onclick="filterProducts('all')">All</button>
+        <button onclick="filterProducts('noodles')">Noodles</button>
+        <button onclick="filterProducts('snacks')">Snacks</button>
+        <button onclick="filterProducts('candy')">Candy&Fruits</button>
+    </nav>
+
+    <div class="container relative-container">
+        <div id="loading-spinner" class="spinner"></div>
+        <div id="client-products" class="products-grid"></div>
+    </div>
+
+    <button class="floating-cart-btn" onclick="window.location.href='cart.html'">
+        🛒
+        <span id="cart-badge-count" class="cart-badge">0</span>
+    </button>
+
+    <div id="admin-login-modal" class="modal">
+        <div class="modal-content">
+            <h3>Enter Admin Password</h3>
+            <input type="password" id="admin-password-input" placeholder="Password">
+            <div class="modal-buttons">
+                <button class="login-btn" onclick="verifyAdminPassword()">Login</button>
+                <button class="cancel-btn" onclick="closeModal('admin-login-modal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="customer-login-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="auth-modal-title">Customer Login</h3>
+            <input type="email" id="customer-email" placeholder="Email Address" required>
+            <input type="password" id="customer-password" placeholder="Password" required>
+            <p id="auth-error" class="error-msg"></p>
+            <div class="modal-buttons">
+                <button class="login-btn" id="auth-action-btn" onclick="handleCustomerAuth()">Login</button>
+                <button class="cancel-btn" onclick="closeModal('customer-login-modal')">Cancel</button>
+            </div>
+            <p class="auth-switch">Don't have an account? <span onclick="switchAuthMode()">Register here</span></p>
+        </div>
+    </div>
+
+    <div id="product-details-modal" class="modal">
+        <div class="modal-content details-modal-content">
+            <span class="close-modal" onclick="closeModal('product-details-modal')">&times;</span>
+            <img id="detail-image" src="" alt="Product Image">
+            <h3 id="detail-name"></h3>
+            <p id="detail-category" class="category-tag"></p>
+            <p id="detail-price" class="price"></p>
+            
+            <div class="rating-section">
+                <h4>Rate this product:</h4>
+                <div class="stars" id="detail-stars">
+                    <span onclick="submitRating(1)">★</span><span onclick="submitRating(2)">★</span><span onclick="submitRating(3)">★</span><span onclick="submitRating(4)">★</span><span onclick="submitRating(5)">★</span>
+                </div>
+                <p id="average-rating-display"></p>
+            </div>
+
+            <button id="detail-add-btn" class="submit-btn full-width" style="margin-top: 15px;">Add to Cart</button>
+        </div>
+    </div>
+
+    <div id="toast-message" class="toast">Action successful!</div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+        
+    <script src="script.js"></script>
+</body>
+</html>

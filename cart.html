@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <button onclick="window.location.href='index.html'" class="header-btn back-btn">Back to Store</button>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">☀️</button>
+        <h1>Your Cart Items</h1>
+    </header>
+
+    <div class="container">
+        <div id="cart-items-list"></div>
+
+        <div class="promo-section">
+        <button id="promo-toggle-btn" class="submit-btn" onclick="togglePromoSection()" style="background-color: var(--secondary-color);">Have a Promo Code?</button>
+        
+        <div id="promo-input-container" style="display: none; margin-top: 15px;">
+            <input type="password" id="promo-input" placeholder="Enter Promo Code" style="margin-right: 0; width: 200px;">
+            <button onclick="applyPromoCode()" class="submit-btn" style="padding: 10px 20px;">Apply</button>
+        </div>
+        <p id="promo-message"></p>
+    </div>
+
+        <div class="cart-total-section">
+            Total Price: <span id="cart-total-amount">0</span> EGP
+        </div>
+
+        <div class="checkout-container">
+            <button class="confirm-order-btn" onclick="sendOrderViaWhatsApp()">Confirm & Place Order</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', displayCartPage);
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Buldak Store</title>
+    
+    <script>
+        if (sessionStorage.getItem("buldak_admin_auth") !== "secured") {
+            window.location.replace("index.html");
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+    <div class="admin-container">
+        <div class="header-section">
+            <h2>Admin Dashboard</h2>
+            <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3 id="stat-total-orders">0</h3>
+                <p>Total Orders</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="stat-total-revenue">0 EGP</h3>
+                <p>Total Revenue</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="stat-total-products">0</h3>
+                <p>Listed Products</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+        </div>
+
+        <hr>
+        
+        <h2>Add / Edit Product</h2>
+        <div class="admin-form">
+            <input type="text" id="product-name" placeholder="Product Name" required>
+            <input type="number" id="product-price" placeholder="Price (EGP)" required>
+            <input type="number" id="product-discount" placeholder="Discount (Optional)" value="0">
+            <select id="product-category">
+                <option value="snacks">Snacks</option>
+                <option value="drinks">Drinks</option>
+                <option value="noodles">Noodles</option>
+                <option value="candy">Candy&Fruits</option>
+            </select>
+            <input type="file" id="product-image" accept="image/*" class="full-width">
+            <button class="submit-btn full-width" onclick="addProduct()">Save Product</button>
+        </div>
+
+        <hr>
+
+        <h2>Manage Orders</h2>
+        <div class="table-responsive">
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-orders-list">
+                    </tbody>
+            </table>
+        </div>
+
+        <hr>
+
+        <h2>Manage Products</h2>
+        <div id="admin-products" class="products-grid"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="script.js"></script>
+
+    <script>
+        function logoutAdmin() {
+            sessionStorage.removeItem("buldak_admin_auth");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
